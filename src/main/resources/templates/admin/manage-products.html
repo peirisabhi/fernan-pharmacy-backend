@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <div th:replace="admin/common/header"></div>
+
+    <title>Fernan Pharmacy - Manage Users</title>
+
+</head>
+<body>
+
+<!-- Main Wrapper -->
+<div class="main-wrapper">
+
+    <!-- Header -->
+    <div th:replace="admin/common/top-bar"></div>
+    <!-- /Header -->
+
+    <!-- Sidebar -->
+    <div th:replace="admin/common/side-bar"></div>
+    <!-- /Sidebar -->
+
+    <!-- Page Wrapper -->
+    <div class="page-wrapper">
+
+        <div class="content container-fluid">
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-sm-7 col-auto">
+                        <h3 class="page-title">Manage Products</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="dashboard.jsp">Dashboard </a></li>
+                            <li class="breadcrumb-item active">Products</li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-5 col">
+                        <a href="#Add_Specialities_details" data-toggle="modal"
+                           class="btn btn-primary float-right mt-2">Add Product</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /Page Header -->
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="example23"
+                                       class="display nowrap table table-hover table-striped table-bordered"
+                                       cellspacing="0" width="100%">
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- /Page Wrapper -->
+
+
+    <!-- Add Modal -->
+    <div class="modal fade " id="Add_Specialities_details" aria-hidden="true" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Product</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="create-new-user-form" method="POST" enctype="multipart/form-data">
+                        <div class="row form-row">
+                            <div class="col-12 ">
+                                <div class="form-group">
+                                    <label>Product Name</label>
+                                    <input type="text" id="product_name_insert" name="name" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12 ">
+                                <div class="form-group">
+                                    <label>Category</label>
+                                    <select class="form-control" id="category" name="category">
+                                        <option disabled selected>-- Select --</option>
+                                        <!--                                                <option>Option 1</option>
+                                                                                        <option>Option 2</option>
+                                                                                        <option>Option 3</option>
+                                                                                        <option>Option 4</option>
+                                                                                        <option>Option 5</option>-->
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 ">
+                                <div class="form-group">
+                                    <label>Brand</label>
+                                    <select class="form-control" id="brand" name="brand">
+                                        <option disabled selected>-- Select --</option>
+                                        <!--                                                <option>Option 1</option>
+                                                                                        <option>Option 2</option>
+                                                                                        <option>Option 3</option>
+                                                                                        <option>Option 4</option>
+                                                                                        <option>Option 5</option>-->
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-6 ">
+                                <div class="form-group">
+                                    <label>Qty</label>
+                                    <input type="number" id="qty_insert" name="qty" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-6 ">
+                                <div class="form-group">
+                                    <label>price</label>
+                                    <input type="number" id="price_insert" name="price" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-6 ">
+                                <div class="form-group">
+                                    <label>MFD</label>
+                                    <input type="date" id="mfd_insert" name="mfd" class="form-control">
+                                </div>
+                            </div>
+
+
+                            <div class="col-6 ">
+                                <div class="form-group">
+                                    <label>EXP</label>
+                                    <input type="date" id="exp_insert" name="exp" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-12 ">
+                                <div class="form-group">
+                                    <label>Discription</label>
+                                    <textarea id="desc_insert" name="exp" class="form-control">
+                                    </textarea>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-12 ">
+                                <label for="image_insert">Product Image</label>
+                                <input type="file" id="image_insert" name="img" class="dropify"/>
+                            </div>
+
+                        </div>
+                        <br/>
+                        <button class="btn btn-primary btn-block">Create New Product</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /ADD Modal -->
+
+</div>
+<!-- /Main Wrapper -->
+
+<div th:replace="admin/common/scripts"></div>
+
+<script>
+    var dt;
+
+    $(document).ready(function () {
+        console.log("loaded")
+
+        loadCategory();
+        loadBrand();
+
+        $('.dropify').dropify();
+
+        $("#create-new-user-form").validate({
+            ignore: [],
+            rules: {
+                fname: {
+                    required: true
+                },
+                lname: {
+                    required: true
+                },
+                email: {
+                    required: true,
+                    email: true,
+                },
+                userRole: {
+                    required: true
+                },
+                password: {
+                    required: true
+                },
+                confirm_password: {
+                    required: true,
+                    equalTo: "#password"
+                }
+
+            },
+            messages: {
+                fname_insert: "Required.!"
+            },
+            submitHandler: function (form) {
+
+
+                $.ajax({
+                    url: '/api/user',
+                    enctype: "multipart/form-data",
+                    data: new FormData(form),
+                    dataType: 'json',
+                    method: 'post',
+                    processData: false,
+                    contentType: false,
+                    error: function (error) {
+
+                        $.toast({
+                            heading: 'Error',
+                            text: error.message,
+                            position: 'top-right',
+                            loaderBg: '#effff8',
+                            icon: 'error',
+                            hideAfter: 3500
+                        });
+
+
+                        // dt.ajax.reload();
+                        // dt.draw();
+                    },
+                    success: function (r) {
+
+                        $.toast({
+                            heading: 'Success',
+                            text: 'Successfully Saved',
+                            position: 'top-right',
+                            loaderBg: '#effff8',
+                            icon: 'info',
+                            hideAfter: 3500
+                        });
+                        dt.ajax.reload();
+                        dt.draw();
+
+                        $("#create-new-user-form")[0].reset();
+                        $(".dropify-clear").trigger("click");
+
+
+                    }
+                });
+            }
+        });
+
+
+        dt = $('#example23').DataTable({
+            // dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ],
+            "processing": true,
+            "initComplete": function (settings, json) {
+                $("#example23").show();
+            },
+            "serverSide": true,
+            "select": true,
+            "dataSrc": "tableData",
+            "bDestroy": true,
+            "columns": [{
+                "data": "id",
+                "name": "ID",
+                "title": "Order Id"
+            },
+                {
+                    "data": "fname",
+                    "name": "Name",
+                    "title": "First Name"
+                },
+                // {
+                //     "data": "lname",
+                //     "name": "Name",
+                //     "title": "Last Name"
+                // },
+                // {
+                //     "data": "phone",
+                //     "name": "Name",
+                //     "title": "Contact"
+                // },
+                // {
+                //     "data": "email",
+                //     "name": "Name",
+                //     "title": "Email"
+                // },
+                // {
+                //     "data": "address",
+                //     "name": "Name",
+                //     "title": "Address"
+                // },
+                // {
+                //     "data": "total",
+                //     "name": "Name",
+                //     "title": "Total"
+                // },
+                // {
+                //     "data": "created_date",
+                //     "name": "Name",
+                //     "title": "Date"
+                // },
+                // {
+                //     "data": "status",
+                //     "name": "Name",
+                //     "title": "Status"
+                // },
+                // {
+                //     mRender: function() {
+                //         return '<td class="text-nowrap"><a class="cu" onclick="update(this);" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i></a>'+
+                //             '<a class="cu" onclick="print_invoice(this);" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-eye text-inverse m-r-10"></i></a></td>';
+                //     }
+                // },
+            ],
+            "language": {
+                "emptyTable": "No files to show..."
+            },
+            "ajax": {
+                "url": "/api/user",
+                "type": "GET",
+                "dataType": "json",
+                "contentType": "application/json",
+                "data": function (d) {
+                    // return JSON.stringify(d);
+                }
+            }
+        });
+
+    });
+
+
+    function loadCategory() {
+        $.ajax({
+            url: '/api/category',
+            type: "get",
+            dataType: 'json',
+
+            error: function (error) {
+                alert(error);
+                console.log(error);
+            },
+            success: function (r) {
+                console.log(r);
+
+                let value = '<option selected disabled>-- Select Category --</option>';
+
+                for (var item in r) {
+                    value += '<option value = "' + r[item].id + '">' + r[item].category + '</option>';
+                    // console.log(r[item].id + ' -- ' + r[item].role)
+                }
+
+                $('#category').html(value);
+            }
+        });
+    }
+
+
+    function loadBrand() {
+        $.ajax({
+            url: '/api/brand',
+            type: "get",
+            dataType: 'json',
+
+            error: function (error) {
+                alert(error);
+                console.log(error);
+            },
+            success: function (r) {
+                console.log(r);
+
+                let value = '<option selected disabled>-- Select Brand --</option>';
+
+                for (var item in r) {
+                    value += '<option value = "' + r[item].id + '">' + r[item].brand + '</option>';
+                    // console.log(r[item].id + ' -- ' + r[item].role)
+                }
+
+                $('#brand').html(value);
+            }
+        });
+    }
+
+
+    function clearInsertForm() {
+        $("#form").trigger('reset');
+    }
+
+</script>
+
+</body>
+
+</html>
