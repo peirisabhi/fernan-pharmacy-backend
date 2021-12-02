@@ -24,8 +24,8 @@ public interface UserRepository extends JpaRepository<User, Integer>{
     public User findByActiveStatus(Boolean status);
 
 //    @Query("SELECT u FROM User u WHERE  u.fname LIKE :value%")
-    @Query("SELECT u FROM User u WHERE  u.activeStatus = 1")
-    public List<User> getUsersForDataTable();
-//    public List<User> getUsersForDataTable(@Param("value") String value);
+    @Query("SELECT u FROM User u WHERE  u.activeStatus = 1 AND (u.fname LIKE :value% OR u.lname LIKE :value% OR u.email LIKE :value% OR u.gender LIKE :value% OR u.mobile LIKE :value% OR u.userRole.role LIKE :value%)")
+//    public List<User> getUsersForDataTable();
+    public List<User> getUsersForDataTable(@Param("value") String value);
 
 }

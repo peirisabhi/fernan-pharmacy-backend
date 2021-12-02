@@ -9,6 +9,7 @@ import com.chathra.fernanPharmacyBackend.payload.response.ProductResponse;
 import com.chathra.fernanPharmacyBackend.repositories.BrandRepository;
 import com.chathra.fernanPharmacyBackend.repositories.CategoryRepository;
 import com.chathra.fernanPharmacyBackend.repositories.ProductRepository;
+import lombok.SneakyThrows;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -42,6 +44,7 @@ public class ProductService {
     BrandRepository brandRepository;
 
 
+    @SneakyThrows
     public ProductResponse saveProduct(ProductRequest productRequest){
 
         Category category = categoryRepository.findById(productRequest.getCategory())
@@ -63,6 +66,7 @@ public class ProductService {
             throw new BadRequestException(HttpStatus.BAD_REQUEST, "Image upload fail");
         }
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         Product product = Product.builder()
                 .name(productRequest.getName())
@@ -71,8 +75,8 @@ public class ProductService {
                 .description(productRequest.getDesc())
                 .buyingPrice(productRequest.getPrice())
                 .sellingPrice(productRequest.getPrice())
-                .mfd(productRequest.getMfd())
-                .exp(productRequest.getExp())
+                .mfd(dateFormat.parse(productRequest.getMfd()))
+                .exp(dateFormat.parse(productRequest.getExp()))
                 .createdDate(new Date())
                 .category(category)
                 .status(1)

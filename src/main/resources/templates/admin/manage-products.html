@@ -76,7 +76,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="create-new-user-form" method="POST" enctype="multipart/form-data">
+                    <form id="create-product-form" method="POST" enctype="multipart/form-data">
                         <div class="row form-row">
                             <div class="col-12 ">
                                 <div class="form-group">
@@ -143,7 +143,7 @@
                             <div class="col-12 ">
                                 <div class="form-group">
                                     <label>Discription</label>
-                                    <textarea id="desc_insert" name="exp" class="form-control">
+                                    <textarea id="desc_insert" name="desc" class="form-control">
                                     </textarea>
                                 </div>
                             </div>
@@ -181,39 +181,31 @@
 
         $('.dropify').dropify();
 
-        $("#create-new-user-form").validate({
+        $("#create-product-form").validate({
             ignore: [],
             rules: {
-                fname: {
+                name: {
                     required: true
                 },
-                lname: {
+                category: {
                     required: true
                 },
-                email: {
+                brand: {
                     required: true,
-                    email: true,
                 },
-                userRole: {
+                qty: {
                     required: true
                 },
-                password: {
+                price: {
                     required: true
                 },
-                confirm_password: {
-                    required: true,
-                    equalTo: "#password"
-                }
 
-            },
-            messages: {
-                fname_insert: "Required.!"
             },
             submitHandler: function (form) {
 
 
                 $.ajax({
-                    url: '/api/user',
+                    url: '/api/product',
                     enctype: "multipart/form-data",
                     data: new FormData(form),
                     dataType: 'json',
@@ -248,7 +240,7 @@
                         dt.ajax.reload();
                         dt.draw();
 
-                        $("#create-new-user-form")[0].reset();
+                        $("#create-product-form")[0].reset();
                         $(".dropify-clear").trigger("click");
 
 

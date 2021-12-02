@@ -1,6 +1,8 @@
 package com.chathra.fernanPharmacyBackend.api;
 
 import com.chathra.fernanPharmacyBackend.entity.User;
+import com.chathra.fernanPharmacyBackend.payload.request.DataTableRequest;
+import com.chathra.fernanPharmacyBackend.payload.request.Page;
 import com.chathra.fernanPharmacyBackend.payload.request.SaveUserRequest;
 import com.chathra.fernanPharmacyBackend.payload.response.DataTableResponse;
 import com.chathra.fernanPharmacyBackend.payload.response.SaveUserResponse;
@@ -32,21 +34,24 @@ public class UserApi {
     @Autowired
     UserRepository userRepository;
 
-    @PostMapping()
-    public ResponseEntity<SaveUserResponse> addUser(SaveUserRequest saveUserRequest) {
+//    @PostMapping()
+//    public ResponseEntity<SaveUserResponse> addUser(SaveUserRequest saveUserRequest) {
+//
+//        System.out.println("user request - " + saveUserRequest.toString());
+//
+//        SaveUserResponse saveUserResponse = userService.saveUser(saveUserRequest);
+//        return new ResponseEntity<>(saveUserResponse, HttpStatus.CREATED);
+//    }
 
-        System.out.println("user request - " + saveUserRequest.toString());
+    @PostMapping
+    public DataTableResponse<User> User(@RequestBody  DataTableRequest dataTableRequest) {
 
-        SaveUserResponse saveUserResponse = userService.saveUser(saveUserRequest);
-        return new ResponseEntity<>(saveUserResponse, HttpStatus.CREATED);
-    }
+        System.out.println("value - ");
 
-    @GetMapping
-    public DataTableResponse User() {
+        System.out.println(" -- dataTableRequest -- " + dataTableRequest.toString());
 
-//        System.out.println("value - " + value);
-
-        return userService.getAllUsers();
+//        return userService.getUsers(dataTableRequest);
+        return userService.getUsersForDataTable(dataTableRequest);
     }
 
 

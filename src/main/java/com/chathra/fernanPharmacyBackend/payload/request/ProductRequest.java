@@ -3,6 +3,7 @@ package com.chathra.fernanPharmacyBackend.payload.request;
 import com.sun.xml.internal.ws.developer.Serialization;
 import lombok.Data;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
@@ -30,9 +31,9 @@ public class ProductRequest {
 
     double price;
 
-    Date mfd;
+    String mfd;
 
-    Date exp;
+    String exp;
 
     String desc;
 

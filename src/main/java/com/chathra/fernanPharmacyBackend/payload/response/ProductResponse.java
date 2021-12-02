@@ -32,9 +32,9 @@ public class ProductResponse {
 
     double price;
 
-    Date mfd;
+    String mfd;
 
-    Date exp;
+    String exp;
 
     String desc;
 
