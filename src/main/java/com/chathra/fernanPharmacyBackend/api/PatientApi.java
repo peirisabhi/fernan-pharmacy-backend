@@ -5,7 +5,10 @@
  */
 package com.chathra.fernanPharmacyBackend.api;
 
+import com.chathra.fernanPharmacyBackend.entity.Doctor;
 import com.chathra.fernanPharmacyBackend.entity.Patient;
+import com.chathra.fernanPharmacyBackend.payload.request.DataTableRequest;
+import com.chathra.fernanPharmacyBackend.payload.response.DataTableResponse;
 import com.chathra.fernanPharmacyBackend.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,7 +51,7 @@ public class PatientApi {
 //        return null;
 //    }
     
-    @PostMapping
+    @PostMapping("/save")
     public Patient post(@RequestBody Patient input) {
 //        input.setRegisteredAt(new Timestamp(new Date().getTime()));
         return patientService.addDoctor(input);
@@ -59,4 +62,15 @@ public class PatientApi {
 //        return null;
 //    }
 //
+
+
+    @PostMapping()
+    public DataTableResponse<Patient> getPatientsForDatatable(@RequestBody DataTableRequest dataTableRequest) {
+
+
+        System.out.println(" -- dataTableRequest -- " + dataTableRequest.toString());
+
+        return patientService.getPatientsForDataTable(dataTableRequest);
+
+    }
 }

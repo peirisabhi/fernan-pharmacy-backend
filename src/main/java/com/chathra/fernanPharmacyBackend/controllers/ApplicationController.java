@@ -29,4 +29,9 @@ public class ApplicationController {
     public String manageDoctors(Model model){
         return "admin/manage-doctors";
     }
+
+    @GetMapping("/manage-patients")
+    public String managePatients(Model model){
+        return "admin/manage-patients";
+    }
 }
