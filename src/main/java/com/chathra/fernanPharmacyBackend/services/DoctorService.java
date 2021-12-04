@@ -1,6 +1,8 @@
 package com.chathra.fernanPharmacyBackend.services;
 
 import com.chathra.fernanPharmacyBackend.entity.Doctor;
+import com.chathra.fernanPharmacyBackend.payload.request.DataTableRequest;
+import com.chathra.fernanPharmacyBackend.payload.response.DataTableResponse;
 import com.chathra.fernanPharmacyBackend.repositories.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,6 +46,24 @@ public class DoctorService {
 
     public List<Doctor> doctorLogin(String email){
         return doctorRepository.getDoctorByEmail(email);
+    }
+
+
+    public DataTableResponse<Doctor> getDoctorsForDataTable(DataTableRequest dataTableRequest){
+
+        DataTableResponse<Doctor> doctorDataTableResponse = new DataTableResponse<>();
+
+        List<Doctor> doctorList = doctorRepository.getDoctorsForDataTable(dataTableRequest.getSearch().getValue());
+
+        System.out.println("doctorList.size() -- " + doctorList.size());
+
+        doctorDataTableResponse.setData(doctorList);
+        doctorDataTableResponse.setDraw(dataTableRequest.getDraw());
+        doctorDataTableResponse.setRecordsTotal(doctorList.size());
+        doctorDataTableResponse.setRecordsFiltered(doctorList.size());
+
+
+        return doctorDataTableResponse;
     }
 
 }

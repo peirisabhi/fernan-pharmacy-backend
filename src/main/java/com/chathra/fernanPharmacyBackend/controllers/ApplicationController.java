@@ -3,7 +3,6 @@ package com.chathra.fernanPharmacyBackend.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class ApplicationController {
@@ -23,5 +22,11 @@ public class ApplicationController {
     @GetMapping("/manage-products")
     public String manageProducts(Model model){
         return "admin/manage-products";
+    }
+
+
+    @GetMapping("/manage-doctors")
+    public String manageDoctors(Model model){
+        return "admin/manage-doctors";
     }
 }

@@ -1,5 +1,6 @@
 package com.chathra.fernanPharmacyBackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,6 +46,7 @@ public class Doctor {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "specialities_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Specialities specialities;
 
     private String password;
