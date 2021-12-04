@@ -1,5 +1,6 @@
 package com.chathra.fernanPharmacyBackend.entity;
 
+import com.sun.xml.internal.ws.developer.Serialization;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Setter
+@Serialization
 public class Category {
 
     @Id

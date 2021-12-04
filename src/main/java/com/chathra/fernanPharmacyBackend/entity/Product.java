@@ -1,5 +1,7 @@
 package com.chathra.fernanPharmacyBackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sun.xml.internal.ws.developer.Serialization;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,6 +13,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Builder
+@Serialization
 public class Product {
 
     @Id
@@ -40,16 +43,19 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Category category;
 
     private Integer status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "brand_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Brand brand;
 
 

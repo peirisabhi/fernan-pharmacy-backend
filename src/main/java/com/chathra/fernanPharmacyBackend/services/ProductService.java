@@ -4,7 +4,9 @@ import com.chathra.fernanPharmacyBackend.entity.Brand;
 import com.chathra.fernanPharmacyBackend.entity.Category;
 import com.chathra.fernanPharmacyBackend.entity.Product;
 import com.chathra.fernanPharmacyBackend.exceptions.BadRequestException;
+import com.chathra.fernanPharmacyBackend.payload.request.DataTableRequest;
 import com.chathra.fernanPharmacyBackend.payload.request.ProductRequest;
+import com.chathra.fernanPharmacyBackend.payload.response.DataTableResponse;
 import com.chathra.fernanPharmacyBackend.payload.response.ProductResponse;
 import com.chathra.fernanPharmacyBackend.repositories.BrandRepository;
 import com.chathra.fernanPharmacyBackend.repositories.CategoryRepository;
@@ -21,6 +23,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import static com.chathra.fernanPharmacyBackend.config.ComPath.UPLOAD_URL;
@@ -86,7 +89,7 @@ public class ProductService {
         Product save = productRepository.save(product);
 
 
-        ProductResponse productResponse = ProductResponse.builder()
+        return ProductResponse.builder()
                 .id(save.getId())
                 .name(product.getName())
                 .qty(Long.valueOf(product.getQty()))
@@ -98,9 +101,24 @@ public class ProductService {
                 .brand(brand.getBrand())
                 .build();
 
+    }
 
-        return productResponse;
+    public DataTableResponse<Product> getProductsForDataTable(DataTableRequest dataTableRequest){
 
+        DataTableResponse<Product> productDataTableResponse = new DataTableResponse<>();
+
+        List<Product> productList = productRepository.getProductsForDataTable(dataTableRequest.getSearch().getValue());
+//        List<Product> productList = productRepository.findAll();
+
+        System.out.println("productList.size() -- " + productList.size());
+
+        productDataTableResponse.setData(productList);
+        productDataTableResponse.setDraw(dataTableRequest.getDraw());
+        productDataTableResponse.setRecordsTotal(productList.size());
+        productDataTableResponse.setRecordsFiltered(productList.size());
+
+
+        return productDataTableResponse;
     }
 
 }

@@ -205,7 +205,7 @@
 
 
                 $.ajax({
-                    url: '/api/product',
+                    url: '/api/product/save',
                     enctype: "multipart/form-data",
                     data: new FormData(form),
                     dataType: 'json',
@@ -250,83 +250,67 @@
         });
 
 
-        dt = $('#example23').DataTable({
-            // dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ],
+        dt =  $('#example23').DataTable({
             "processing": true,
-            "initComplete": function (settings, json) {
-                $("#example23").show();
-            },
             "serverSide": true,
-            "select": true,
-            "dataSrc": "tableData",
-            "bDestroy": true,
-            "columns": [{
-                "data": "id",
-                "name": "ID",
-                "title": "Order Id"
-            },
-                {
-                    "data": "fname",
-                    "name": "Name",
-                    "title": "First Name"
-                },
-                // {
-                //     "data": "lname",
-                //     "name": "Name",
-                //     "title": "Last Name"
-                // },
-                // {
-                //     "data": "phone",
-                //     "name": "Name",
-                //     "title": "Contact"
-                // },
-                // {
-                //     "data": "email",
-                //     "name": "Name",
-                //     "title": "Email"
-                // },
-                // {
-                //     "data": "address",
-                //     "name": "Name",
-                //     "title": "Address"
-                // },
-                // {
-                //     "data": "total",
-                //     "name": "Name",
-                //     "title": "Total"
-                // },
-                // {
-                //     "data": "created_date",
-                //     "name": "Name",
-                //     "title": "Date"
-                // },
-                // {
-                //     "data": "status",
-                //     "name": "Name",
-                //     "title": "Status"
-                // },
-                // {
-                //     mRender: function() {
-                //         return '<td class="text-nowrap"><a class="cu" onclick="update(this);" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i></a>'+
-                //             '<a class="cu" onclick="print_invoice(this);" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-eye text-inverse m-r-10"></i></a></td>';
-                //     }
-                // },
-            ],
-            "language": {
-                "emptyTable": "No files to show..."
-            },
             "ajax": {
-                "url": "/api/user",
-                "type": "GET",
+                "url": "/api/product",
+                "type": "POST",
                 "dataType": "json",
                 "contentType": "application/json",
                 "data": function (d) {
-                    // return JSON.stringify(d);
+                    return JSON.stringify(d);
                 }
-            }
+            },
+            "columns": [
+                {
+                    "data": "id",
+                    "name": "ID",
+                    "title": "User Id"
+                },
+                {
+                    "data": "name",
+                    "name": "Name",
+                    "title": "Name"
+                },
+                {
+                    "data": "category.category",
+                    "name": "Name",
+                    "title": "Category"
+                },
+                {
+                    "data": "brand.brand",
+                    "name": "Name",
+                    "title": "Brand"
+                },
+                {
+                    "data": "mfd",
+                    "name": "Name",
+                    "title": "MFD"
+                },
+                {
+                    "data": "exp",
+                    "name": "Name",
+                    "title": "EXP"
+                },
+                {
+                    "data": "sellingPrice",
+                    "name": "Name",
+                    "title": "Price"
+                },
+                {
+                    "data": "qty",
+                    "name": "Name",
+                    "title": "Qty"
+                },
+                {
+                    mRender: function() {
+                        return '<td class="text-nowrap"><a class="cu" onclick="update(this);" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i></a>'+
+                            '<a class="cu" onclick="print_invoice(this);" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-eye text-inverse m-r-10"></i></a></td>';
+                    }
+                },
+
+            ]
         });
 
     });

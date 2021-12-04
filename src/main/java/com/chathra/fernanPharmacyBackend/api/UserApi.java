@@ -34,14 +34,14 @@ public class UserApi {
     @Autowired
     UserRepository userRepository;
 
-//    @PostMapping()
-//    public ResponseEntity<SaveUserResponse> addUser(SaveUserRequest saveUserRequest) {
-//
-//        System.out.println("user request - " + saveUserRequest.toString());
-//
-//        SaveUserResponse saveUserResponse = userService.saveUser(saveUserRequest);
-//        return new ResponseEntity<>(saveUserResponse, HttpStatus.CREATED);
-//    }
+    @PostMapping("/save")
+    public ResponseEntity<SaveUserResponse> addUser(SaveUserRequest saveUserRequest) {
+
+        System.out.println("user request - " + saveUserRequest.toString());
+
+        SaveUserResponse saveUserResponse = userService.saveUser(saveUserRequest);
+        return new ResponseEntity<>(saveUserResponse, HttpStatus.CREATED);
+    }
 
     @PostMapping
     public DataTableResponse<User> User(@RequestBody  DataTableRequest dataTableRequest) {
