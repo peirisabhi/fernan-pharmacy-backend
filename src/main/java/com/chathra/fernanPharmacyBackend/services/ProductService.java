@@ -59,10 +59,10 @@ public class ProductService {
 
         String productImage = new Date().getTime() + "_" + UUID.randomUUID().toString().concat(".").concat(FilenameUtils.getExtension(productRequest.getImg().getOriginalFilename()));
 
-        Path profileImagePath = Paths.get(UPLOAD_URL + "images\\product_images\\", productImage);
+        Path productImagePath = Paths.get(UPLOAD_URL + "images\\product_images\\", productImage);
 
         try {
-            Files.write(profileImagePath, productRequest.getImg().getBytes());
+            Files.write(productImagePath, productRequest.getImg().getBytes());
             System.out.println("image saved --- ");
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -84,6 +84,7 @@ public class ProductService {
                 .category(category)
                 .status(1)
                 .brand(brand)
+                .img(productImage)
                 .build();
 
         Product save = productRepository.save(product);

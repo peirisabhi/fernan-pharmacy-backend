@@ -58,5 +58,5 @@ public class Product {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Brand brand;
 
-
+    private String img;
 }

@@ -34,4 +34,10 @@ public class ApplicationController {
     public String managePatients(Model model){
         return "admin/manage-patients";
     }
+
+    @GetMapping("/manage-orders")
+    public String manageOrders(Model model){
+        return "admin/manage-orders";
+    }
+
 }
