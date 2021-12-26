@@ -1,13 +1,18 @@
 package com.chathra.fernanPharmacyBackend.services;
 
 import com.chathra.fernanPharmacyBackend.entity.Doctor;
+import com.chathra.fernanPharmacyBackend.exceptions.DuplicateDataFoundException;
 import com.chathra.fernanPharmacyBackend.payload.request.DataTableRequest;
+import com.chathra.fernanPharmacyBackend.payload.request.UpdateDoctorRequest;
 import com.chathra.fernanPharmacyBackend.payload.response.DataTableResponse;
 import com.chathra.fernanPharmacyBackend.repositories.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
+import static com.chathra.fernanPharmacyBackend.config.ComPath.UPLOAD_URL;
 
 @Service
 public class DoctorService {
@@ -19,13 +24,48 @@ public class DoctorService {
         return doctorRepository.findAll();
     }
 
-    public Doctor getDoctorById(int id) {
-        return doctorRepository.findById(id).orElse(null);
+    public Doctor getDoctorById(Long id) {
+        return doctorRepository.getById(id).orElse(null);
     }
 
     public Doctor addDoctor(Doctor doctor) {
-        return doctorRepository.save(doctor);
+        try {
+            doctor = doctorRepository.save(doctor);
+        }catch (Exception e){
+            throw new DuplicateDataFoundException("Duplicate data found", doctor.getEmail());
+        }
+
+        return doctor;
     }
+
+
+    public Doctor updateDoctor(UpdateDoctorRequest updateDoctorRequest) {
+
+        Doctor currentDoctor;
+
+        try {
+
+            currentDoctor = doctorRepository.getById(updateDoctorRequest.getId());
+
+            currentDoctor.setFname(updateDoctorRequest.getName());
+            currentDoctor.setMobile(updateDoctorRequest.getMobile());
+            currentDoctor.setGender(updateDoctorRequest.getGender());
+            currentDoctor.setDob(updateDoctorRequest.getDob());
+//            currentDoctor.setSpecialities();
+            currentDoctor.setAbout(updateDoctorRequest.getAbout());
+            currentDoctor.setPrice(updateDoctorRequest.getPrice());
+
+            currentDoctor = doctorRepository.save(currentDoctor);
+        }catch (Exception e){
+            throw new DuplicateDataFoundException("Something Went Wrong", " ");
+        }
+
+        return currentDoctor;
+    }
+
+
+
+
 //
 //    public Doctor updateProd(Doctor doctor) {
 //        Doctor doctorUpdate = doctorRepository.findById(doctor.getId()).orElse(null);
@@ -64,6 +104,19 @@ public class DoctorService {
 
 
         return doctorDataTableResponse;
+    }
+
+    public List<Doctor> getActiveDoctirs(){
+        List<Doctor> doctorList = doctorRepository.findAllByStatus(1);
+
+        for(Doctor doctor : doctorList){
+            if(doctor.getImg() != null){
+                doctor.setImg(UPLOAD_URL + "images\\doctor_images\\" +doctor.getImg());
+            }else {
+                doctor.setImg(" ");
+            }
+        }
+        return doctorList;
     }
 
 }

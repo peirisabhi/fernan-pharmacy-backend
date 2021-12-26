@@ -1,10 +1,7 @@
 package com.chathra.fernanPharmacyBackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,6 +11,9 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
+@Table(name = "doctor",
+        uniqueConstraints = @UniqueConstraint(name = "uk_email", columnNames = "email"))
 public class Doctor {
 
     @Id

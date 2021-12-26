@@ -13,6 +13,8 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @Setter
+@Table(name = "patient",
+        uniqueConstraints = @UniqueConstraint(name = "uk_email", columnNames = "email"))
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,5 +1,8 @@
 package com.chathra.fernanPharmacyBackend.model;
 
+import lombok.ToString;
+
+@ToString 
 public class Login {
     String email;
     String password;

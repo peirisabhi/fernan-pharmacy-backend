@@ -12,16 +12,19 @@ import com.chathra.fernanPharmacyBackend.repositories.BrandRepository;
 import com.chathra.fernanPharmacyBackend.repositories.CategoryRepository;
 import com.chathra.fernanPharmacyBackend.repositories.ProductRepository;
 import lombok.SneakyThrows;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -48,7 +51,7 @@ public class ProductService {
 
 
     @SneakyThrows
-    public ProductResponse saveProduct(ProductRequest productRequest){
+    public ProductResponse saveProduct(ProductRequest productRequest) {
 
         Category category = categoryRepository.findById(productRequest.getCategory())
                 .orElseThrow(() -> new BadRequestException(HttpStatus.BAD_REQUEST, "Invalid Category"));
@@ -104,7 +107,7 @@ public class ProductService {
 
     }
 
-    public DataTableResponse<Product> getProductsForDataTable(DataTableRequest dataTableRequest){
+    public DataTableResponse<Product> getProductsForDataTable(DataTableRequest dataTableRequest) {
 
         DataTableResponse<Product> productDataTableResponse = new DataTableResponse<>();
 
@@ -120,6 +123,31 @@ public class ProductService {
 
 
         return productDataTableResponse;
+    }
+
+
+    public List<Product> getActiveProducts() {
+        List<Product> productList = productRepository.findAllByStatus(1);
+
+        for (Product product : productList) {
+            if (product.getImg() != null) {
+                product.setImg(UPLOAD_URL + "images\\product_images\\" + product.getImg());
+
+//                try{
+//                    byte[] fileContent = FileUtils.readFileToByteArray(new File(UPLOAD_URL + product.getImg()));
+//                    String encodedString = Base64.getEncoder().encodeToString(fileContent);
+//
+//                    product.setImg(encodedString);
+//
+//                }catch (Exception e){
+//                    e.printStackTrace();
+//                }
+            } else {
+                product.setImg(" ");
+            }
+        }
+
+        return productList;
     }
 
 }

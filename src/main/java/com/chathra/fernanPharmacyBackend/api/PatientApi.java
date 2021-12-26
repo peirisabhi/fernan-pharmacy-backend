@@ -36,10 +36,10 @@ public class PatientApi {
     @Autowired
     PatientService patientService;
 
-    @GetMapping()
-    public List<Patient> list() {
-        return patientService.getAllDoctors();
-    }
+//    @GetMapping()
+//    public List<Patient> list() {
+//        return patientService.getAllDoctors();
+//    }
     
 //    @GetMapping("/{id}")
 //    public Patient get(@PathVariable String id) {
@@ -54,7 +54,7 @@ public class PatientApi {
     @PostMapping("/save")
     public Patient post(@RequestBody Patient input) {
 //        input.setRegisteredAt(new Timestamp(new Date().getTime()));
-        return patientService.addDoctor(input);
+        return patientService.addPatient(input);
     }
     
 //    @DeleteMapping("/{id}")
