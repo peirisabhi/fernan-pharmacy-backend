@@ -56,13 +56,22 @@ public class DoctorApi {
     
     @PostMapping("/save")
     public Doctor post(@RequestBody Doctor input) {
+
+        System.out.println("input--"  + input.toString());
+
         input.setRegisterdAt(new Timestamp(new Date().getTime()));
+        input.setAbout("");
+        input.setDob(new Timestamp(new Date().getTime()));
+        input.setGender("Fe-Male");
+        input.setImg("");
+        input.setMobile("");
+        input.setPrice((double) 0);
         return doctorService.addDoctor(input);
     }
 
 
     @PostMapping("/update")
-    public Doctor update(UpdateDoctorRequest updateDoctorRequest) {
+    public Doctor update(@RequestBody UpdateDoctorRequest updateDoctorRequest) {
 
         System.out.println("------------------ " + updateDoctorRequest.toString());
 

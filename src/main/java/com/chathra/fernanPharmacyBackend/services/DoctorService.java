@@ -1,11 +1,13 @@
 package com.chathra.fernanPharmacyBackend.services;
 
 import com.chathra.fernanPharmacyBackend.entity.Doctor;
+import com.chathra.fernanPharmacyBackend.entity.Specialities;
 import com.chathra.fernanPharmacyBackend.exceptions.DuplicateDataFoundException;
 import com.chathra.fernanPharmacyBackend.payload.request.DataTableRequest;
 import com.chathra.fernanPharmacyBackend.payload.request.UpdateDoctorRequest;
 import com.chathra.fernanPharmacyBackend.payload.response.DataTableResponse;
 import com.chathra.fernanPharmacyBackend.repositories.DoctorRepository;
+import com.chathra.fernanPharmacyBackend.repositories.SpecialitiesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,18 +22,25 @@ public class DoctorService {
     @Autowired
     DoctorRepository doctorRepository;
 
+    @Autowired
+    SpecialitiesRepository specialitiesRepository;
+
     public List<Doctor> getAllDoctors() {
         return doctorRepository.findAll();
     }
 
     public Doctor getDoctorById(Long id) {
-        return doctorRepository.getById(id).orElse(null);
+        return doctorRepository.findById(id).orElse(null);
     }
 
     public Doctor addDoctor(Doctor doctor) {
         try {
+            Specialities specialities = specialitiesRepository.getById(1L);
+
+            doctor.setSpecialities(specialities);
             doctor = doctorRepository.save(doctor);
         }catch (Exception e){
+            e.printStackTrace();
             throw new DuplicateDataFoundException("Duplicate data found", doctor.getEmail());
         }
 
@@ -40,13 +49,13 @@ public class DoctorService {
 
 
     public Doctor updateDoctor(UpdateDoctorRequest updateDoctorRequest) {
-
+        System.out.println("updateDoctor");
         Doctor currentDoctor;
 
         try {
 
-            currentDoctor = doctorRepository.getById(updateDoctorRequest.getId());
-
+            currentDoctor = doctorRepository.findById(updateDoctorRequest.getId()).get();
+            System.out.println("currentDoctor -- " + currentDoctor.toString());
             currentDoctor.setFname(updateDoctorRequest.getName());
             currentDoctor.setMobile(updateDoctorRequest.getMobile());
             currentDoctor.setGender(updateDoctorRequest.getGender());
@@ -56,7 +65,10 @@ public class DoctorService {
             currentDoctor.setPrice(updateDoctorRequest.getPrice());
 
             currentDoctor = doctorRepository.save(currentDoctor);
+
+            System.out.println("currentDoctor -- " + currentDoctor.toString());
         }catch (Exception e){
+            e.printStackTrace();
             throw new DuplicateDataFoundException("Something Went Wrong", " ");
         }
 
@@ -110,7 +122,8 @@ public class DoctorService {
         List<Doctor> doctorList = doctorRepository.findAllByStatus(1);
 
         for(Doctor doctor : doctorList){
-            if(doctor.getImg() != null){
+            System.out.println(doctor.getImg().equals(""));
+            if(!doctor.getImg().equals("")){
                 doctor.setImg(UPLOAD_URL + "images\\doctor_images\\" +doctor.getImg());
             }else {
                 doctor.setImg(" ");

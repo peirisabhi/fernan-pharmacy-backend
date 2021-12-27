@@ -17,7 +17,7 @@ import java.util.Date;
 @Serialization
 public class UpdateDoctorRequest {
 
-    Integer id;
+    Long id;
 
     String name;
 

@@ -18,7 +18,7 @@ public class SpecialitiesService {
     }
 
     public Specialities getSpecialitiesById(int id) {
-        return specialitiesRepository.findById(id).orElse(null);
+        return specialitiesRepository.findById((long) id).orElse(null);
     }
 
     public Specialities addSpecialities(Specialities specialities) {
