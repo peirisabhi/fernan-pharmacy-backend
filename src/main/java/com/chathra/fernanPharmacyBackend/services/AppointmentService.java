@@ -10,10 +10,12 @@ import com.chathra.fernanPharmacyBackend.payload.response.AppointmentResponse;
 import com.chathra.fernanPharmacyBackend.repositories.AppointmentRepository;
 import com.chathra.fernanPharmacyBackend.repositories.DoctorRepository;
 import com.chathra.fernanPharmacyBackend.repositories.PatientRepository;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -35,6 +37,7 @@ public class AppointmentService {
     PatientRepository patientRepository;
 
 
+    @SneakyThrows
     public AppointmentResponse addAppointment(AppointmentRequest appointmentRequest){
 
         Patient patient = patientRepository.findById(appointmentRequest.getPatientId())
@@ -44,14 +47,20 @@ public class AppointmentService {
         Doctor doctor = doctorRepository.findById(appointmentRequest.getDoctorId())
                 .orElseThrow(() -> new BadRequestException(HttpStatus.BAD_REQUEST, "Invalid Doctor"));
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
 
         Appointment appointment = new Appointment();
         appointment.setDoctor(doctor);
         appointment.setCreatedAt(new Date());
         appointment.setPatient(patient);
         appointment.setStatus(1);
-        appointment.setDate(appointmentRequest.getDate());
-        appointment.setTime(appointmentRequest.getTime());
+        appointment.setDate(dateFormat.parse(appointmentRequest.getDate()));
+        appointment.setTime(timeFormat.parse(appointmentRequest.getTime()));
+        appointment.setAbout(appointmentRequest.getAbout());
+        appointment.setMobile(appointmentRequest.getMobile());
+        appointment.setName(appointmentRequest.getName());
+        appointment.setNic(appointmentRequest.getNic());
 
         Appointment savedAppointment = appointmentRepository.save(appointment);
 

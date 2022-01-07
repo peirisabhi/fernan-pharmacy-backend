@@ -38,5 +38,14 @@ public class Appointment {
     @JoinColumn(name = "patient_id")
     private Patient patient;
 
+    String name;
+
+    String mobile;
+
+    String nic;
+
+    String about;
+
+
 
 }

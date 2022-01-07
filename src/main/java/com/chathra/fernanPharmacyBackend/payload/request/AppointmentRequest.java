@@ -19,14 +19,20 @@ public class AppointmentRequest {
 
     Long id;
 
-    Date date;
+    String date;
 
-    Date time;
+    String time;
 
     Long doctorId;
 
-    Integer patientId;
+    Long patientId;
 
+    String name;
 
+    String mobile;
+
+    String nic;
+
+    String about;
 
 }
