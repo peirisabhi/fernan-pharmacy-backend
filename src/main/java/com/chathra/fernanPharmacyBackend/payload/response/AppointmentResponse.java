@@ -29,5 +29,9 @@ public class AppointmentResponse {
 
     String specialities;
 
+    String status;
+
+    String payment;
+
 
 }

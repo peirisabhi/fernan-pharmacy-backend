@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.chathra.fernanPharmacyBackend.config.ComPath.UPLOAD_URL;
+import static com.chathra.fernanPharmacyBackend.config.ComPath.VIEW_URL;
 
 /**
  * Created by Intellij.
@@ -131,7 +132,8 @@ public class ProductService {
 
         for (Product product : productList) {
             if (product.getImg() != null) {
-                product.setImg(UPLOAD_URL + "images\\product_images\\" + product.getImg());
+//                product.setImg(UPLOAD_URL + "images\\product_images\\" + product.getImg());
+                product.setImg(VIEW_URL + "images\\product_images\\" + product.getImg());
 
 //                try{
 //                    byte[] fileContent = FileUtils.readFileToByteArray(new File(UPLOAD_URL + product.getImg()));

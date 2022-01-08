@@ -1,15 +1,16 @@
 package com.chathra.fernanPharmacyBackend.api;
 
+import com.chathra.fernanPharmacyBackend.entity.Doctor;
 import com.chathra.fernanPharmacyBackend.payload.request.AppointmentRequest;
 import com.chathra.fernanPharmacyBackend.payload.response.AppointmentResponse;
+import com.chathra.fernanPharmacyBackend.payload.response.DataResponse;
 import com.chathra.fernanPharmacyBackend.services.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by Intellij.
@@ -29,6 +30,16 @@ public class AppointmentApi {
         System.out.println(appointmentRequest.toString());
         AppointmentResponse appointmentResponse = appointmentService.addAppointment(appointmentRequest);
         return new ResponseEntity<>(appointmentResponse, HttpStatus.CREATED);
+    }
+
+
+    @GetMapping("patient/{id}")
+    public ResponseEntity<DataResponse> getAppointmentsByPatient(@PathVariable Long id){
+        System.out.println(id);
+
+        DataResponse<AppointmentResponse> dataResponse = new DataResponse<>(200, appointmentService.getAppointmetsByPatient(id));
+
+        return new ResponseEntity<>(dataResponse, HttpStatus.OK);
     }
 
 }

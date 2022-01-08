@@ -46,6 +46,7 @@ public class LoginApi {
                             response.put("status", 200);
                             response.put("id", doctor.getId());
                             response.put("type", "DOCTOR");
+                            response.put("name", doctor.getFname());
                         }else{
                             response.put("status", 500);
                             response.put("message", "Your are not active user");
@@ -64,6 +65,7 @@ public class LoginApi {
                             response.put("status", 200);
                             response.put("id", patient.getId());
                             response.put("type", "PATIENT");
+                            response.put("name",  patient.getFullName());
                         }else{
                             response.put("status", 500);
                             response.put("message", "Your are not active user");

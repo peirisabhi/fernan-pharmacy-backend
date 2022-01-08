@@ -16,7 +16,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Intellij.
@@ -72,6 +74,42 @@ public class AppointmentService {
 
         return appointmentResponse;
 
+    }
+
+
+    public List<AppointmentResponse> getAppointmetsByPatient(Long patientId){
+
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new BadRequestException(HttpStatus.BAD_REQUEST, "Invalid Patient"));
+
+        List<Appointment> appointmentList = appointmentRepository.getAppointmentsByPatient(patient);
+
+        ArrayList<AppointmentResponse> appointmentResponseList = new ArrayList<>();
+
+        for (Appointment appointment : appointmentList){
+            AppointmentResponse appointmentResponse = new AppointmentResponse();
+
+            appointmentResponse.setId(appointment.getId());
+            appointmentResponse.setTime(appointment.getTime());
+            appointmentResponse.setDate(appointment.getDate());
+            appointmentResponse.setSpecialities(appointment.getDoctor().getSpecialities().getSpecialities());
+            appointmentResponse.setDoctor(appointment.getDoctor().getFname() + appointment.getDoctor().getLname());
+
+            String status = "";
+            if (appointment.getStatus() == 1){
+                status = "Pending";
+            }else if (appointment.getStatus() == 2){
+                status = "Approved";
+            }else if (appointment.getStatus() == 3){
+                status = "Canceled";
+            }
+            appointmentResponse.setStatus(status);
+            appointmentResponse.setPayment("Not Paid");
+
+            appointmentResponseList.add(appointmentResponse);
+        }
+
+        return appointmentResponseList;
     }
 
 }
