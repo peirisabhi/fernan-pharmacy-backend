@@ -48,4 +48,12 @@ public class Orders {
 
     String status;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_id")
+    private Patient patient;
+
 }

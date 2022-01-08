@@ -38,4 +38,8 @@ public class OrderRequest {
     double shipping;
 
     List<OrderItemRequest> orderItems;
+
+    Long patientId;
+
+    Long doctorId;
 }
