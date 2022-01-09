@@ -57,7 +57,7 @@ public class OrderService {
             orders.setPatient(patient);
         }
         if(orderRequest.getDoctorId() != null){
-            Doctor doctor = doctorRepository.findById(orderRequest.getId()).get();
+            Doctor doctor = doctorRepository.findById(orderRequest.getDoctorId()).get();
             orders.setDoctor(doctor);
         }
 

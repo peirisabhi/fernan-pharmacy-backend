@@ -27,6 +27,8 @@ public class AppointmentResponse {
 
     String doctor;
 
+    String patient;
+
     String specialities;
 
     String status;

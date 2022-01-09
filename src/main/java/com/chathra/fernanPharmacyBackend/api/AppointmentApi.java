@@ -42,4 +42,15 @@ public class AppointmentApi {
         return new ResponseEntity<>(dataResponse, HttpStatus.OK);
     }
 
+
+
+    @GetMapping("doctor/{id}")
+    public ResponseEntity<DataResponse> getAppointmentsByDoctor(@PathVariable Long id){
+        System.out.println(id);
+
+        DataResponse<AppointmentResponse> dataResponse = new DataResponse<>(200, appointmentService.getAppointmetsByDoctor(id));
+
+        return new ResponseEntity<>(dataResponse, HttpStatus.OK);
+    }
+
 }
