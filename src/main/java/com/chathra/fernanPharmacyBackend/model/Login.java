@@ -1,8 +1,12 @@
 package com.chathra.fernanPharmacyBackend.model;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
-@ToString 
+@ToString
+@Setter
+@Getter
 public class Login {
     String email;
     String password;

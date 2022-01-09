@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
     <meta charset="utf-8">
@@ -40,12 +41,12 @@
                         <p class="account-subtitle">Access to our dashboard</p>
 
                         <!-- Form -->
-                        <form action="https://doccure-html.dreamguystech.com/template/admin/index.html">
+                        <form  th:action="@{/user/login}"  role="form" th:object="${login}" method="post">
                             <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Email">
+                                <input class="form-control" type="email" th:name="email" placeholder="Email">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Password">
+                                <input class="form-control" type="password" th:name="password" placeholder="Password">
                             </div>
                             <div class="form-group">
                                 <button class="btn btn-primary btn-block" type="submit">Login</button>
@@ -53,7 +54,7 @@
                         </form>
                         <!-- /Form -->
 
-                        <div class="text-center forgotpass"><a href="forgot-password.html">Forgot Password?</a></div>
+                        <div class="text-center forgotpass"><a href="">Forgot Password?</a></div>
 
 
                     </div>

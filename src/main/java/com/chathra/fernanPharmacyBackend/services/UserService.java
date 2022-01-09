@@ -4,6 +4,7 @@ import com.chathra.fernanPharmacyBackend.comparators.UserComparators;
 import com.chathra.fernanPharmacyBackend.entity.User;
 import com.chathra.fernanPharmacyBackend.entity.UserRole;
 import com.chathra.fernanPharmacyBackend.exceptions.BadRequestException;
+import com.chathra.fernanPharmacyBackend.model.Login;
 import com.chathra.fernanPharmacyBackend.payload.request.*;
 import com.chathra.fernanPharmacyBackend.payload.response.DataTableResponse;
 import com.chathra.fernanPharmacyBackend.payload.response.SaveUserResponse;
@@ -229,6 +230,18 @@ public class UserService {
 
         return userDataTableResponse;
 
+    }
+
+
+    public User userLogin(Login login){
+        User user = userRepository.findUserByEmailAndPassword(login.getEmail().trim(), login.getPassword().trim());
+//        if(user != null){
+//            if(user.getPassword().equals(login.getPassword())){
+//
+//            }
+//        }
+
+        return user;
     }
 
 }

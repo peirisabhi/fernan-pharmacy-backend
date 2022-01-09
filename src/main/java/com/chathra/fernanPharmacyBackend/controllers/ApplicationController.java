@@ -9,7 +9,13 @@ public class ApplicationController {
 
     @GetMapping("/")
     public String index(Model model){
-        model.addAttribute("name", "Abhish");
+        return "admin/index";
+    }
+
+
+    @GetMapping("/dashboard")
+    public String dashboard(Model model){
+//        model.addAttribute("name", "Abhish");
         return "admin/dashboard";
     }
 

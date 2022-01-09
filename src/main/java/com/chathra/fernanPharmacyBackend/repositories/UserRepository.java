@@ -21,6 +21,8 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 
     public User findUserByEmail(String email);
 
+    User findUserByEmailAndPassword(String email, String password);
+
     public User findByActiveStatus(Boolean status);
 
 //    @Query("SELECT u FROM User u WHERE  u.fname LIKE :value%")
