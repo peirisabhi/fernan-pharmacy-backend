@@ -17,7 +17,7 @@ import java.util.List;
  * Time: 8:11 am
  */
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer>{
+public interface UserRepository extends JpaRepository<User, Long>{
 
     public User findUserByEmail(String email);
 

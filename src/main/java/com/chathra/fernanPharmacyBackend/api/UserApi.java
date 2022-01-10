@@ -43,6 +43,16 @@ public class UserApi {
         return new ResponseEntity<>(saveUserResponse, HttpStatus.CREATED);
     }
 
+
+    @PostMapping("/remove/{id}")
+    public ResponseEntity<Boolean> addUser(@PathVariable Long id) {
+
+        System.out.println(id);
+
+        Boolean removeUser = userService.removeUser(id);
+        return new ResponseEntity<>(removeUser, HttpStatus.CREATED);
+    }
+
     @PostMapping
     public DataTableResponse<User> User(@RequestBody  DataTableRequest dataTableRequest) {
 

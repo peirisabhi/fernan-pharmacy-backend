@@ -244,4 +244,15 @@ public class UserService {
         return user;
     }
 
+    public boolean removeUser(Long id){
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new BadRequestException(HttpStatus.BAD_REQUEST, "Invalid User"));
+
+        user.setActiveStatus(false);
+        userRepository.save(user);
+
+        return true;
+
+    }
+
 }
