@@ -45,7 +45,7 @@ public class UserApi {
 
 
     @PostMapping("/remove/{id}")
-    public ResponseEntity<Boolean> addUser(@PathVariable Long id) {
+    public ResponseEntity<Boolean> removeUser(@PathVariable Long id) {
 
         System.out.println(id);
 

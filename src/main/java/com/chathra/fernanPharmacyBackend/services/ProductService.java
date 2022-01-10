@@ -3,6 +3,7 @@ package com.chathra.fernanPharmacyBackend.services;
 import com.chathra.fernanPharmacyBackend.entity.Brand;
 import com.chathra.fernanPharmacyBackend.entity.Category;
 import com.chathra.fernanPharmacyBackend.entity.Product;
+import com.chathra.fernanPharmacyBackend.entity.User;
 import com.chathra.fernanPharmacyBackend.exceptions.BadRequestException;
 import com.chathra.fernanPharmacyBackend.payload.request.DataTableRequest;
 import com.chathra.fernanPharmacyBackend.payload.request.ProductRequest;
@@ -150,6 +151,17 @@ public class ProductService {
         }
 
         return productList;
+    }
+
+    public boolean removeProduct(Long id){
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new BadRequestException(HttpStatus.BAD_REQUEST, "Invalid Product"));
+
+        product.setStatus(0);
+        productRepository.save(product);
+
+        return true;
+
     }
 
 }

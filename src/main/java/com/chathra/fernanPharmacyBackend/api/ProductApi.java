@@ -67,4 +67,14 @@ public class ProductApi {
 //        return null;
     }
 
+
+    @PostMapping("/remove/{id}")
+    public ResponseEntity<Boolean> removeProduct(@PathVariable Long id) {
+
+        System.out.println(id);
+
+        Boolean aBoolean = productService.removeProduct(id);
+        return new ResponseEntity<>(aBoolean, HttpStatus.CREATED);
+    }
+
 }
