@@ -1,6 +1,7 @@
 package com.chathra.fernanPharmacyBackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sun.xml.internal.ws.developer.Serialization;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
+@Serialization
 @Table(name = "doctor",
         uniqueConstraints = @UniqueConstraint(name = "uk_email", columnNames = "email"))
 public class Doctor {

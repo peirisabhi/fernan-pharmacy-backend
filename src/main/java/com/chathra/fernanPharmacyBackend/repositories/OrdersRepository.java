@@ -17,7 +17,7 @@ import java.util.List;
 @Repository
 public interface OrdersRepository extends JpaRepository<Orders, Long> {
 
-    @Query("SELECT o FROM Orders o WHERE o.fname LIKE :value% OR o.lname LIKE :value% OR o.email LIKE :value% OR o.address LIKE :value% OR o.phone LIKE :value% OR o.total LIKE :value% OR o.subTotal LIKE :value% OR o.createDate LIKE :value%")
+    @Query("SELECT o FROM Orders o WHERE o.fname LIKE :value% OR o.lname LIKE :value% OR o.email LIKE :value% OR o.address LIKE :value% OR o.phone LIKE :value% ")
     List<Orders> getOrdersForDataTable(@Param("value") Object value);
 
 }

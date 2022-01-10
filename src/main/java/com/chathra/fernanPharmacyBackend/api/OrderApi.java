@@ -28,7 +28,7 @@ public class OrderApi {
     OrderService orderService;
 
     @PostMapping()
-    public DataTableResponse<Orders> getPatientsForDatatable(@RequestBody DataTableRequest dataTableRequest) {
+    public DataTableResponse<Orders> getOrdersForDatatable(@RequestBody DataTableRequest dataTableRequest) {
 
 
         System.out.println(" -- dataTableRequest -- " + dataTableRequest.toString());

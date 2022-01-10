@@ -107,6 +107,8 @@ public class OrderService {
 
         System.out.println("orderList.size() -- " + orderList.size());
 
+        System.out.println(orderList.toString());
+
         orderDataTableResponse.setData(orderList);
         orderDataTableResponse.setDraw(dataTableRequest.getDraw());
         orderDataTableResponse.setRecordsTotal(orderList.size());
