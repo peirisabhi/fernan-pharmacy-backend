@@ -8,9 +8,13 @@ package com.chathra.fernanPharmacyBackend.api;
 import com.chathra.fernanPharmacyBackend.entity.Doctor;
 import com.chathra.fernanPharmacyBackend.entity.Patient;
 import com.chathra.fernanPharmacyBackend.payload.request.DataTableRequest;
+import com.chathra.fernanPharmacyBackend.payload.request.UpdateDoctorRequest;
+import com.chathra.fernanPharmacyBackend.payload.request.UpdatePatientRequest;
 import com.chathra.fernanPharmacyBackend.payload.response.DataTableResponse;
+import com.chathra.fernanPharmacyBackend.repositories.PatientRepository;
 import com.chathra.fernanPharmacyBackend.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -36,15 +40,19 @@ public class PatientApi {
     @Autowired
     PatientService patientService;
 
+    @Autowired
+    PatientRepository patientRepository;
+
 //    @GetMapping()
 //    public List<Patient> list() {
 //        return patientService.getAllDoctors();
 //    }
     
-//    @GetMapping("/{id}")
-//    public Patient get(@PathVariable String id) {
-//        return patientService.getDoctorById(id);
-//    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Patient> get(@PathVariable Long id) {
+        System.out.println("id --- " + id);
+        return new ResponseEntity<>(patientRepository.findById(id).orElse(null), HttpStatus.OK);
+    }
     
 //    @PutMapping("/{id}")
 //    public ResponseEntity<?> put(@PathVariable String id, @RequestBody Object input) {
@@ -62,6 +70,20 @@ public class PatientApi {
 //        return null;
 //    }
 //
+
+
+    @PostMapping("/update")
+    public Patient update(@RequestBody UpdatePatientRequest updatePatientRequest) {
+
+        System.out.println("------------------ " + updatePatientRequest.toString());
+
+        return patientService.updatePatient(updatePatientRequest);
+    }
+
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<?> delete(@PathVariable String id) {
+//        return null;
+//    }
 
 
     @PostMapping()

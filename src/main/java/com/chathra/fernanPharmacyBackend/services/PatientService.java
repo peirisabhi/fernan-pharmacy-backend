@@ -5,6 +5,7 @@ import com.chathra.fernanPharmacyBackend.entity.Patient;
 import com.chathra.fernanPharmacyBackend.exceptions.BadRequestException;
 import com.chathra.fernanPharmacyBackend.exceptions.DuplicateDataFoundException;
 import com.chathra.fernanPharmacyBackend.payload.request.DataTableRequest;
+import com.chathra.fernanPharmacyBackend.payload.request.UpdatePatientRequest;
 import com.chathra.fernanPharmacyBackend.payload.response.DataTableResponse;
 import com.chathra.fernanPharmacyBackend.repositories.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,34 @@ public class PatientService {
 
 
         return patientDataTableResponse;
+    }
+
+
+    public Patient updatePatient(UpdatePatientRequest updatePatientRequest){
+        System.out.println("update patient");
+
+        Patient currentPatient;
+
+        try {
+
+            currentPatient = patientRepository.findById(updatePatientRequest.getId()).get();
+            System.out.println("currentPatient -- " + currentPatient.toString());
+            currentPatient.setFullName(updatePatientRequest.getFullName());
+            currentPatient.setMobile(updatePatientRequest.getMobile());
+//            currentPatient.setDob(updatePatientRequest.getDob());
+            currentPatient.setAddress(updatePatientRequest.getAddress());
+            currentPatient.setBloodGroup(updatePatientRequest.getBloodGroup());
+
+            currentPatient = patientRepository.save(currentPatient);
+
+            System.out.println("currentPatient -- " + currentPatient.toString());
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new DuplicateDataFoundException("Something Went Wrong", " ");
+        }
+
+        return currentPatient;
+
     }
 
 }
